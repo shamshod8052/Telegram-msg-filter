@@ -1,6 +1,7 @@
 import asyncio
 import traceback
 
+from pyrogram.enums import ChatType
 from pyrogram.errors import FloodWait, ChatWriteForbidden
 
 from config import app
@@ -20,8 +21,10 @@ async def forward(chat_id, message, n=1):
 
 @app.on_message()
 async def my_handler(client, message):
-    manager = MessageManager(message)
+    if message.chat.type not in [ChatType.SUPERGROUP, ChatType.GROUP, ChatType.CHANNEL]:
+        return
 
+    manager = MessageManager(message)
     for chat_id in manager.get_chat_ids():
         await forward(chat_id, message)
 

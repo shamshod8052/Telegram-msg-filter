@@ -1,3 +1,5 @@
+import json
+from pathlib import Path
 from typing import Union, List
 
 CHANNEL_ID = "@OnlyPythonJobs"
@@ -10,9 +12,7 @@ class Info:
         self.chat_id = chat_id
         self.parts_of_text = [text.lower() for text in parts_of_text]
 
-CHANNELS_INFO = [
-    Info(
-        "@OnlyPythonJobs",
-        ["python"]
-    ),
-]
+with open(Path(__file__).resolve().parent / "channels.json") as f:
+    data = json.load(f)
+
+CHANNELS_INFO = [Info(**item) for item in data]
