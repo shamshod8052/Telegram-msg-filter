@@ -208,3 +208,5 @@ __marimo__/
 sessions/*
 !sessions/.gitignore
 channels.json
+logs/*
+!logs/.gitignore
