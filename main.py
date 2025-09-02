@@ -1,35 +1,39 @@
 import asyncio
 import traceback
 
-from pyrogram.enums import ChatType
-from pyrogram.errors import FloodWait
+from telethon import events
+from telethon.errors import FloodWaitError
 
-from config import app
+from config import client
 from manager import MessageManager
 
 
-async def forward(chat_id, message, n=1):
+async def forward(chat_id, event, n=1):
     if n > 3:
         return
     try:
-        await message.forward(chat_id)
-    except FloodWait as f:
-        print(f"Floodwait {f.value} seconds")
-        await asyncio.sleep(f.value)
-        await forward(chat_id, message, n + 1)
+        await event.forward_to(chat_id)
+    except FloodWaitError as f:
+        print(f"Floodwait {f.seconds} seconds")
+        await asyncio.sleep(f.seconds)
+        await forward(chat_id, event, n + 1)
     except Exception as e:
         traceback.print_exc()
 
-@app.on_message()
-async def my_handler(client, message):
-    if message.chat.type not in [ChatType.SUPERGROUP, ChatType.GROUP, ChatType.CHANNEL]:
+@client.on(events.NewMessage)
+async def my_handler(event: events.NewMessage.Event):
+    chat = await event.get_chat()
+    if not (chat.broadcast or chat.megagroup or chat.title):
         return
 
-    manager = MessageManager(message)
-    for chat_id in manager.get_chat_ids():
-        await forward(chat_id, message)
+    manager = MessageManager(event)
+    chat_ids = await manager.get_chat_ids()
+    for chat_id in chat_ids:
+        await forward(chat_id, event)
 
 
 if __name__ == "__main__":
     print("Working...")
-    app.run()
+
+    client.start()
+    client.run_until_disconnected()
