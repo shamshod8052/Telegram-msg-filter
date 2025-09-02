@@ -2,7 +2,7 @@ import asyncio
 import traceback
 
 from pyrogram.enums import ChatType
-from pyrogram.errors import FloodWait, ChatWriteForbidden
+from pyrogram.errors import FloodWait
 
 from config import app
 from manager import MessageManager
@@ -14,6 +14,7 @@ async def forward(chat_id, message, n=1):
     try:
         await message.forward(chat_id)
     except FloodWait as f:
+        print(f"Floodwait {f.value} seconds")
         await asyncio.sleep(f.value)
         await forward(chat_id, message, n + 1)
     except Exception as e:

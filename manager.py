@@ -25,5 +25,8 @@ class MessageManager:
         if not self.text:
             return []
         return [
-            channel.chat_id for channel in CHANNELS_INFO if self.check(channel.parts_of_text)
+            channel.chat_id for channel in CHANNELS_INFO
+            if channel.chat_id != self.message.chat.id
+               and channel.chat_id.lstrip('@') != self.message.chat.username
+               and self.check(channel.parts_of_text)
         ]
