@@ -4,4 +4,3 @@ PySocks==1.7.1
 python-decouple==3.8
 rsa==4.9.1
 Telethon==1.41.0
-TgCrypto==1.2.5
