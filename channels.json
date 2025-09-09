@@ -1,6 +1,11 @@
 [
   {
     "chat_id": "@OnlyPythonJobs",
-    "parts_of_text": ["python"]
+    "parts_of_texts": [
+      ["python"], ["bot"], ["django"], ["drf"], ["django rest"], ["aiogram"], ["telethon"], ["pyrogram"]
+    ],
+    "not_parts_of_texts": [
+      ["Нажмите кнопку, чтобы доказать, что вы не бот."]
+    ]
   }
 ]

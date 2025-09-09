@@ -16,10 +16,15 @@ class MessageManager:
             return self.event.caption.lower()
         return None
 
-    async def check(self, texts):
-        return all(
+    @staticmethod
+    async def check(text, parts_of_texts: List[List[str]]):
+        return any(
             [
-                (t in self.text) for t in texts
+                all(
+                    [
+                        t in text for t in part_of_texts
+                    ]
+                ) for part_of_texts in parts_of_texts
             ]
         )
 
@@ -31,5 +36,6 @@ class MessageManager:
             channel.chat_id for channel in CHANNELS_INFO
             if channel.chat_id != self.event.chat_id
                and channel.chat_id.lstrip('@') != chat.username
-               and await self.check(channel.parts_of_text)
+               and await self.check(self.text, channel.parts_of_texts)
+               and not await self.check(self.text, channel.not_parts_of_texts)
         ]
