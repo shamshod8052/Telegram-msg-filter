@@ -10,9 +10,9 @@ class MessageManager:
     def get_text(self):
         if not (self.event and self.event.message):
             return None
-        if self.event.message.text:
+        if getattr(self.event.message, 'text', None):
             return self.event.message.text.lower()
-        if self.event.message.caption:
+        if getattr(self.event.message, 'caption', None):
             return self.event.caption.lower()
         return None
 
