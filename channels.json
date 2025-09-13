@@ -1,11 +1,18 @@
 [
   {
-    "chat_id": "@OnlyPythonJobs",
+    "chat_id": "-1003072741896",
     "parts_of_texts": [
       ["python"], ["bot"], ["django"], ["drf"], ["django rest"], ["aiogram"], ["telethon"], ["pyrogram"]
     ],
     "not_parts_of_texts": [
       ["Нажмите кнопку, чтобы доказать, что вы не бот."]
     ]
+  },
+  {
+    "chat_id": "-1002290340409",
+    "parts_of_texts": [
+      ["Php"], ["MySQL"], ["PostgreSQL"], ["Yii2"], ["Laravel"]
+    ],
+    "not_parts_of_texts": []
   }
 ]

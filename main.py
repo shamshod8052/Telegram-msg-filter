@@ -12,7 +12,7 @@ async def forward(chat_id, event, n=1):
     if n > 3:
         return
     try:
-        await event.forward_to(chat_id)
+        await event.forward_to(int(chat_id) if chat_id.lstrip('-').isdigit() else chat_id)
     except FloodWaitError as f:
         print(f"Floodwait {f.seconds} seconds")
         await asyncio.sleep(f.seconds)
