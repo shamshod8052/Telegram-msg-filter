@@ -7,5 +7,12 @@
     "not_parts_of_texts": [
       ["Нажмите кнопку, чтобы доказать, что вы не бот."]
     ]
+  },
+  {
+    "chat_id": "@Rizqphp",
+    "parts_of_texts": [
+      ["Php"], ["MySQL"], ["PostgreSQL"], ["Yii2"], ["Laravel"]
+    ],
+    "not_parts_of_texts": []
   }
 ]
